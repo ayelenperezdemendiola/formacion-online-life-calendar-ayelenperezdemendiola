@@ -8,43 +8,75 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      mood: '',
-      date: '',
+      arrMood: [],
+      todayMood: {
+        date: '',
+        mood: '',
+        message: ''
+      }
     }
+  }
+  getDate = (e) => {
+    const currentDate = e.currentTarget.value;
+    console.log(currentDate)
+    this.setState( prevState => {
+      return {
+        todayMood: {
+          ...prevState.todayMood,
+          date: currentDate
+        }
+      }
+    })
   }
 
   getMood = (e) => {
     const currentMood = e.currentTarget.value;
     console.log(currentMood)
-    this.setState({
-      mood: currentMood
+    this.setState(prevState => {
+      return {
+        todayMood: {
+          ...prevState.todayMood,
+          mood: currentMood
+        }
+      }
     })
   }
 
-  getDate = (e) => {
-    const currentDate = e.currentTarget.value;
-    console.log (currentDate)
-    this.setState({
-      date: currentDate
-    })
-  }
 
   getMessage = (e) => {
     const currentMessage = e.currentTarget.value;
-    console.log (currentMessage)
+    console.log(currentMessage)
+    this.setState( prevState => {
+      return {
+        todayMood: {
+          ...prevState.todayMood,
+          message: currentMessage
+        }
+      }
+    })
+  }
+
+  saveDayMood = () => {
+   const { arrMood, todayMood } = this.state;
+   const newArr = [...arrMood, todayMood];
+   console.log (newArr);
+   this.setState({
+     arrMood : newArr
+   })
   }
 
   render() {
     return (
       <div className="app">
         <Switch>
-          <Route exact path="/" component={ Calendar } />
-          <Route path="/editor" render={()=>{
+          <Route exact path="/" component={Calendar} />
+          <Route path="/editor" render={() => {
             return (
               <Editor
                 getMood = {this.getMood}
                 getDate = {this.getDate}
                 getMessage = {this.getMessage}
+                saveDayMood = {this.saveDayMood}
               />
             );
           }} />

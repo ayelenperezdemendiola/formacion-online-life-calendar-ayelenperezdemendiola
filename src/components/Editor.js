@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Editor = (props) => {
-    const { getMood, getDate, getMessage } = props;
+    const { getMood, getDate, getMessage, saveDayMood } = props;
     return (
         <form action="/monthly--mood" className="app__form" method="get">
             <div className="form__container">
@@ -35,7 +35,7 @@ const Editor = (props) => {
                 <label className="form__description" htmlFor="description">Mensaje</label>
                 <input type="text" className="form__field--description" id="description" placeholder="¿Por qué es un buen día?" onChange={getMessage}/>
             </div>
-            <button className="btn save" type="button">Guardar</button>
+            <button className="btn save" type="button" onClick={saveDayMood}>Guardar</button>
             <button className="btn cancel" type="button">Cancelar</button>
         </form>
     );
