@@ -4,6 +4,9 @@ import Editor from './components/Editor';
 import Calendar from './components/Calendar';
 import { Route, Switch } from 'react-router-dom';
 
+//pendientes:
+// - que solo se pueda poner un mensaje si es un día feliz
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -18,7 +21,6 @@ class App extends React.Component {
   }
   getDate = (e) => {
     const currentDate = e.currentTarget.value;
-    console.log(currentDate)
     this.setState( prevState => {
       return {
         todayMood: {
@@ -31,7 +33,6 @@ class App extends React.Component {
 
   getMood = (e) => {
     const currentMood = e.currentTarget.value;
-    console.log(currentMood)
     this.setState(prevState => {
       return {
         todayMood: {
@@ -45,7 +46,6 @@ class App extends React.Component {
 
   getMessage = (e) => {
     const currentMessage = e.currentTarget.value;
-    console.log(currentMessage)
     this.setState( prevState => {
       return {
         todayMood: {
@@ -59,17 +59,25 @@ class App extends React.Component {
   saveDayMood = () => {
    const { arrMood, todayMood } = this.state;
    const newArr = [...arrMood, todayMood];
-   console.log (newArr);
    this.setState({
      arrMood : newArr
-   })
+    })
+    localStorage.setItem('dayBydayMood', JSON.stringify(newArr));
+    // si lo hago con this.state.arrMood no me lo pinta...why?
   }
 
   render() {
+    const { arrMood, todayMood } = this.state;
     return (
       <div className="app">
         <Switch>
-          <Route exact path="/" component={Calendar} />
+          <Route exact path="/" render={() => {
+            return (
+              <Calendar
+                arrMood = {arrMood}
+                />
+            );
+          }} />
           <Route path="/editor" render={() => {
             return (
               <Editor
@@ -77,6 +85,7 @@ class App extends React.Component {
                 getDate = {this.getDate}
                 getMessage = {this.getMessage}
                 saveDayMood = {this.saveDayMood}
+                todayMood = {todayMood}
               />
             );
           }} />

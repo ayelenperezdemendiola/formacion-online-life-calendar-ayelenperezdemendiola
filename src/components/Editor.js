@@ -1,7 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Editor = (props) => {
-    const { getMood, getDate, getMessage, saveDayMood } = props;
+    const { getMood, getDate, getMessage, saveDayMood, todayMood } = props;
+    const { mood } = todayMood;
     return (
         <form action="/monthly--mood" className="app__form" method="get">
             <div className="form__container">
@@ -31,12 +33,20 @@ const Editor = (props) => {
                     </label>
                 </fieldset>
             </div>
+            {mood === 'happy' ? 
             <div className="form__container">
                 <label className="form__description" htmlFor="description">Mensaje</label>
                 <input type="text" className="form__field--description" id="description" placeholder="¿Por qué es un buen día?" onChange={getMessage}/>
-            </div>
-            <button className="btn save" type="button" onClick={saveDayMood}>Guardar</button>
-            <button className="btn cancel" type="button">Cancelar</button>
+            </div> 
+            :
+            ''
+            }
+            <Link to="/">
+                <button className="btn save" type="button" onClick={saveDayMood}>Guardar</button>
+            </Link>
+            <Link to ="/">
+                <button className="btn cancel" type="button">Cancelar</button>
+            </Link>
         </form>
     );
 }
