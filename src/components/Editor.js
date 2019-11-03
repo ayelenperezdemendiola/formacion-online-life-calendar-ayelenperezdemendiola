@@ -8,10 +8,10 @@ const Editor = (props) => {
         <form action="/monthly--mood" className="app__form" method="get">
             <div className="form__container">
                 <label className="form__field--date" htmlFor="date">Fecha</label>
-                <input type="date" className="form__input--date" id="date" min="2019/10/31" max="2030/10/31" onChange={getDate}/>
+                <input type="date" className="form__input--date" id="date" min="2019/10/31" max="2030/10/31" onChange={getDate} />
             </div>
             <div className="form__container">
-                <fieldset>
+                <fieldset className="fieldset--mood">
                     <legend>Estado</legend>
                     <label className="form__mood" htmlFor="happy">{`:)`}
                         <input
@@ -19,6 +19,7 @@ const Editor = (props) => {
                             type="radio"
                             value="happy"
                             name="mood"
+                            className="input--mood"
                             onChange={getMood}
                         />
                     </label>
@@ -28,6 +29,7 @@ const Editor = (props) => {
                             type="radio"
                             value="sad"
                             name="mood"
+                            className="input--mood"
                             onChange={getMood}
                         />
                     </label>

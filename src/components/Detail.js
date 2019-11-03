@@ -4,26 +4,21 @@ import { Link } from 'react-router-dom';
 const Detail = (props) => {
     const { routerProps, arrMood } = props;
     const { date } = routerProps.match.params;
-    console.log(date);
-    console.log(arrMood);
     const currentMood = arrMood.find(item => item.date === date);
-    console.log(currentMood);
     return (
         <>
+        <div className="detail__general--container">
             <Link to="/">Volver</Link>
             {currentMood ?
-                <li className={currentMood.mood === 'happy' ? "happy--item" : "sad--item"} key={currentMood.date}>
-                    <div className={currentMood.mood === 'happy' ? "happy--container" : "sad--container"}>{currentMood.mood === 'happy' ? ":)" : ":("}</div>
+                <div className="detail__container">
+                    <div className={currentMood.mood === 'happy' ? "happy--container container" : "sad--container container"}>{currentMood.mood === 'happy' ? ":)" : ":("}</div>
                     <p className="item--date">{currentMood.date}</p>
-                    {currentMood.mood === 'happy' ?
                         <p className="happy--message">{currentMood.message}</p>
-                        :
-                        ''
-                    }
-                </li>
+                </div>
                 :
                 <p>Debes cliquear sobre una carita</p>
             }
+        </div>
         </>
     );
 }

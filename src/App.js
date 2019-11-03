@@ -5,15 +5,13 @@ import Calendar from './components/Calendar';
 import Detail from './components/Detail';
 import { Route, Switch } from 'react-router-dom';
 
-//pendientes:
-//que solo se pueda guardar una por día
-
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       arrMood: [],
       dateDetail: '',
+      repeat: false,
       todayMood: {
         date: '',
         mood: '',
@@ -60,18 +58,32 @@ class App extends React.Component {
   saveDayMood = () => {
    const { arrMood, todayMood } = this.state;
    const newArr = [...arrMood, todayMood];
-   this.setState({
-     arrMood : newArr
+   const filter = newArr.filter(item=> item.date === todayMood.date);
+   if (filter.length > 1 ) {
+     const index = newArr.findIndex (item => item.date === todayMood.date);
+     this.setState({
+      repeat: true
     })
-    localStorage.setItem('dayBydayMood', JSON.stringify(newArr));
-    // si lo hago con this.state.arrMood no me lo pinta...why?
+     return (
+       newArr.splice(index, 1)
+     );
+   } else {
+     this.setState({
+       arrMood : newArr
+      })
+      localStorage.setItem('dayBydayMood', JSON.stringify(newArr));
+   }
   }
 
   componentDidMount(){
     const savedMood = JSON.parse(localStorage.getItem('dayBydayMood'));
-    this.setState({
-      arrMood: savedMood
-    })
+    if(savedMood === null){
+      console.log('¿qué tal ha ido tu día?')} 
+      else {
+      this.setState({
+        arrMood: savedMood
+      })
+    }
   }
 
   getDetailDate = (e) =>{
@@ -82,7 +94,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { arrMood, todayMood, currentDate } = this.state;
+    const { arrMood, todayMood, repeat } = this.state;
     return (
       <div className="app">
         <Switch>
@@ -91,6 +103,7 @@ class App extends React.Component {
               <Calendar
                 arrMood = {arrMood}
                 getDetailDate = {this.getDetailDate}
+                repeat = {repeat}
                 />
             );
           }} />

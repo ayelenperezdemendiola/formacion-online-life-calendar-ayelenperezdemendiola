@@ -1,18 +1,20 @@
 *{
     margin: 0px;
     padding: 0px;
-    font-family: 'Cutive Mono', monospace;
+    font-family: 'McLaren', cursive;
 }
 .app{
-    background-color: tomato;
+    background-image: url('../images/fondo.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
     min-height: 100vh;
     display: flex; 
     justify-content: center;
     align-items: center;
 }
 .app__form{
-    padding: 20px;
-    background-color: lightpink;
+    padding: 5px 20px;
+    background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -25,12 +27,29 @@
     justify-content: center;
     align-items: center;
     margin: 10px;
-    background-color: lightseagreen;
+    background-color: turquoise;
+    border-radius: 5px;
     width: 100%;
+    padding: 10px;
 }
-.btn{
-    width: 200px;
+.input--mood{
     margin: 5px;
+}
+.fieldset--mood{
+    border: none;
+}
+
+.btn{
+    width: 100px;
+    height: 50px;
+    border-radius: 5px;
+    margin: 5px;
+    border: 1px solid pink;
+}
+.btn:hover{
+    background: pink;
+    color: white;
+    transform: scale(1.1);
 }
 .happy--container{
     background-color: yellow;
@@ -50,4 +69,39 @@
     justify-content: center;
     align-items: center;
     color: white;
+}
+.mood__list{
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 60px;
+    background-color: white;
+    border-radius: 10px;
+}
+.item{
+    margin: 5px;
+}
+.item:hover{
+    transform: scale(1.1);
+}
+.mood__container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.detail__general--container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+.container{
+    margin: 10px;
+}
+.link{
+    text-decoration: none;
 }
